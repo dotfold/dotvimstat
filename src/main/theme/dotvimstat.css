@@ -41,6 +41,13 @@
 	backgroundAlpha: 0.7;
 	width: 100%;
 	height: 100%;
+	alignX: 50%;
+	alignY: 50%;
+}
+
+.summaryCount {
+	fontSize: 26;
+	color: #f3f3f3;
 }
 
 .box2 {

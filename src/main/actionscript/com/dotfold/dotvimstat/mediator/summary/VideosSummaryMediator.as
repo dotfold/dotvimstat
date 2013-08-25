@@ -31,7 +31,8 @@ package com.dotfold.dotvimstat.mediator.summary
 		}
 		
 		/**
-		 * 
+		 * @inheritDoc
+		 * Retrieve the videos via the VimeoService.
 		 */		
 		override public function init():void
 		{
@@ -41,11 +42,19 @@ package com.dotfold.dotvimstat.mediator.summary
 				.then(videosDataLoaded, videosDataLoadError);
 		}
 		
+		/**
+		 * 
+		 */		
 		private function videosDataLoaded(result:Array):void
 		{
 			logger.debug('service responded fulfilled {0}', result);
+			
+			view.videosCount = result ? result.length : 0;
 		}
 		
+		/**
+		 * 
+		 */		
 		private function videosDataLoadError(error:*):void
 		{
 			// process error
