@@ -92,10 +92,10 @@ package com.dotfold.dotvimstat.manager
 		{
 			var map:Dictionary = new Dictionary();
 			
-//			map[IView] = Animation;
-			map[VideosSummary] = VideosSummaryMediator;
-			map[LikesSummary] = LikesSummaryMediator;
-			map[ActivitySummary] = ActivitySummaryMediator;
+			map[VideosSummary] 		= VideosSummaryMediator;
+			map[LikesSummary] 		= LikesSummaryMediator;
+			map[ActivitySummary] 	= ActivitySummaryMediator;
+			map[UserSummary] 		= UserSummaryMediator;
 			
 			return map;
 		}

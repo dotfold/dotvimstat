@@ -50,6 +50,11 @@
 	color: #f3f3f3;
 }
 
+.titleLabel {
+	fontsize: 18;
+	color: #f3f3f3;
+}
+
 .box2 {
 	backgroundAlpha: 0.3;
 	backgroundColor: #f3f3f3;

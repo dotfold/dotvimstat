@@ -6,12 +6,12 @@
 
 			<vbox>
 
+				<vbox style="summaryContainer">
+					<userSummary style="summaryView" />
+				</vbox>
+
 				<titleContainer style="summaryContainer" title="Videos">
 					<videosSummary style="summaryView" />
-				</titleContainer>
-
-				<titleContainer style="summaryContainer" title="Likes">
-					<likesSummary style="summaryView" />
 				</titleContainer>
 
 				<titleContainer style="summaryContainer" title="Activity">
