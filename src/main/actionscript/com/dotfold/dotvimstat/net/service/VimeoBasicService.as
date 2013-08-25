@@ -5,7 +5,7 @@ package com.dotfold.dotvimstat.net.service
 	import com.codecatalyst.promise.Deferred;
 	import com.codecatalyst.promise.Promise;
 	import com.dotfold.dotvimstat.net.http.HTTPClient;
-	import com.dotfold.dotvimstat.net.serializer.VideosResponseSerializer;
+	import com.dotfold.dotvimstat.net.serializer.*;
 	
 	import flash.media.Video;
 	
@@ -68,19 +68,29 @@ package com.dotfold.dotvimstat.net.service
 				merge(urlDefaults, {
 					resource: 'videos.json'
 				})
-			).addReponseSerializer(new VideosResponseSerializer())
+			)
+			.addReponseSerializer(new VideosResponseSerializer())
 			
 			http.mapUrl("likes", 
 				merge(urlDefaults, {
 					resource: 'likes.json'
 				})
-			);
+			)
+			.addReponseSerializer(new LikesResponseSerializer());
 			
 			http.mapUrl("activity", 
 				merge(urlDefaults, {
 					resource: 'user_did.json'
 				})
-			);
+			)
+			.addReponseSerializer(new ActivityResponseSerializer());
+			
+			http.mapUrl("info", 
+				merge(urlDefaults, {
+					resource: 'info.json'
+				})
+			)
+			.addReponseSerializer(new UserInfoResponseSerializer());
 		}
 		
 		//
@@ -103,7 +113,6 @@ package com.dotfold.dotvimstat.net.service
 		public function getVideos():Promise
 		{
 			logger.debug('getVideos');
-			
 			
 			return http.get("videos");
 		}
