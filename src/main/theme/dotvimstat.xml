@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<app>
+	<stack style="main">
+
+		<hbox style="fullWidth">
+
+			<vbox>
+
+				<titleContainer style="summaryContainer" title="Videos">
+					<videosSummary style="summaryView" />
+				</titleContainer>
+
+				<titleContainer style="summaryContainer" title="Likes">
+					<likesSummary style="summaryView" />
+				</titleContainer>
+
+				<titleContainer style="summaryContainer" title="Activity">
+					<activitySummary style="summaryView" />
+				</titleContainer>
+
+			</vbox>
+
+			<vbox style="box2" />
+
+		</hbox>
+
+
+	</stack>
+</app>
