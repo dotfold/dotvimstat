@@ -4,6 +4,7 @@ package com.dotfold.dotvimstat.view.summary
 	
 	import com.dotfold.dotvimstat.net.service.VimeoBasicService;
 	import com.dotfold.dotvimstat.view.IView;
+	import com.greensock.TweenLite;
 	
 	import modena.core.Element;
 	import modena.core.ElementContent;
@@ -38,6 +39,7 @@ package com.dotfold.dotvimstat.view.summary
 			
 			_label = new Label("summaryCount");
 			content.addChild(_label);
+			_label.alpha = 0;
 			
 			return content;
 		}
@@ -48,6 +50,8 @@ package com.dotfold.dotvimstat.view.summary
 		public function set videosCount(value:int):void
 		{
 			_label.text = value.toString();
+			
+			TweenLite.to(_label, 0.4, { alpha: 1, ease: 'easeInQuad' }); 
 			invalidateRender();
 		}
 		
