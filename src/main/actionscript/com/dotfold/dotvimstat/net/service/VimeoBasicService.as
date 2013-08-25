@@ -43,7 +43,14 @@ package com.dotfold.dotvimstat.net.service
 		/**
 		 * Default name value pairs used in common URL endpoints. 
 		 */		
-		protected var urlDefaults:Object;
+		protected function get urlDefaults():Object
+		{
+			return {
+				host: 'vimeo.com',
+				application: 'api/v2',
+				user: 'primarythreads'
+			};
+		}
 		
 		/**
 		 * Constructor.
@@ -51,12 +58,6 @@ package com.dotfold.dotvimstat.net.service
 		public function VimeoBasicService()
 		{
 			super();
-			
-			urlDefaults = {
-				host: 'vimeo.com',
-				application: 'api/v2',
-				user: 'primarythreads'
-			};
 		}
 		
 		/**
@@ -80,6 +81,7 @@ package com.dotfold.dotvimstat.net.service
 			
 			http.mapUrl("activity", 
 				merge(urlDefaults, {
+					application: 'api/v2/activity',
 					resource: 'user_did.json'
 				})
 			)
