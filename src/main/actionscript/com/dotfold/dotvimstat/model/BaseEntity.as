@@ -1,6 +1,7 @@
 package com.dotfold.dotvimstat.model
 {
 	/**
+	 * Base entity class defines common fields for entity classes.
 	 * 
 	 * @author jamesmcnamee
 	 * 
@@ -17,6 +18,9 @@ package com.dotfold.dotvimstat.model
 		
 		private var _id:int;
 		
+		/**
+		 * ID value as set by Vimeo.
+		 */		
 		public function get id():int
 		{
 			return _id;

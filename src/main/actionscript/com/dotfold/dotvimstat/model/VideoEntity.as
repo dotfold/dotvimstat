@@ -1,7 +1,20 @@
 package com.dotfold.dotvimstat.model
 {
+	
+	/**
+	 * VideoEntity.
+	 * 
+	 * Model class mapped to Vimeo video object.
+	 *  
+	 * @author jamesmcnamee
+	 * 
+	 */	
 	public class VideoEntity extends BaseEntity
 	{
+		
+		/**
+		 * Constructor.
+		 */		
 		public function VideoEntity()
 		{
 			super();
