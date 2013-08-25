@@ -1,7 +1,6 @@
 package com.dotfold.dotvimstat.mediator.summary
 {
 	import com.dotfold.dotvimstat.mediator.Mediator;
-	import com.dotfold.dotvimstat.model.VideoEntity;
 	import com.dotfold.dotvimstat.net.service.IVimeoService;
 	import com.dotfold.dotvimstat.view.summary.VideosSummary;
 	
@@ -37,7 +36,7 @@ package com.dotfold.dotvimstat.mediator.summary
 		override public function init():void
 		{
 			logger.debug('init, calling service: {0}', service);
-			
+
 			service.getVideos()
 				.then(videosDataLoaded, videosDataLoadError);
 		}

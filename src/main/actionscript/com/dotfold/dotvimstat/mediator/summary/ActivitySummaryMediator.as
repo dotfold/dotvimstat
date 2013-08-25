@@ -29,6 +29,15 @@ package com.dotfold.dotvimstat.mediator.summary
 		 */		
 		override public function init():void
 		{
+			service.getActivity()
+				.then(activityDataLoaded);
+		}
+		
+		/**
+		 * 
+		 */		
+		private function activityDataLoaded(result:*):void
+		{
 			
 		}
 		

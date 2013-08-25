@@ -89,11 +89,11 @@ package com.dotfold.dotvimstat.net.http
 		 */		
 		public function get(resource:String, params:Object = null):Promise
 		{
-			var mappedTransform:NamedRequestMapping = _namedResourceMap[resource];
+			var mapped:NamedRequestMapping = _namedResourceMap[resource];
 			
 			return requestFor(resource)
 				.send()
-				.then(mappedTransform.serialize);
+				.then(mapped.serialize);
 		}
 		
 		/**
@@ -105,7 +105,8 @@ package com.dotfold.dotvimstat.net.http
 			var mapping:NamedRequestMapping = _namedResourceMap[resourceName];
 			if (!mapping)
 			{
-				throw new Error('');
+				var reason:String = "No mapping found for " + resourceName;
+				throw new Error(reason);
 			}
 			
 			var request:HTTPRequest = new HTTPRequest();

@@ -33,7 +33,6 @@ package com.dotfold.dotvimstat.net.http
 		 */		
 		public function serialize(data:*):*
 		{
-			trace('transformResponse...');
 			return _serializer.serialize(data);
 		}
 		
