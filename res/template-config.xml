@@ -1,0 +1,64 @@
+<!--
+	 Flex configuration build file for Movideo Player. Should be compiled
+	 using ANT to include properties set in build.properties files etc.
+-->
+<flex-config>
+	<target-player>11.0.0.0</target-player>
+
+	<default-background-color>0x000000</default-background-color>
+
+	<benchmark>true</benchmark>
+	
+	<frames>
+		<frame>
+			<label>two</label>
+			<classname>VimeoApplication</classname>
+		</frame>
+	</frames>
+
+	<metadata>
+		<title>@NAME@</title>
+		<description>@DESCRIPTION@</description>
+		<publisher>@PUBLISHER@</publisher>
+		<creator>@CREATOR@</creator>
+		<language>EN</language>
+	</metadata>
+
+	<compiler>
+		<debug>@DEBUG@</debug>
+		<incremental>true</incremental>
+		<optimize>true</optimize>
+		<keep-generated-actionscript>false</keep-generated-actionscript>
+		<warn-no-constructor>false</warn-no-constructor>
+		<warn-no-explicit-super-call-in-constructor>true</warn-no-explicit-super-call-in-constructor>
+		<show-unused-type-selector-warnings>false</show-unused-type-selector-warnings>
+		
+		<source-path append="true">
+			<path-element>@SRC@</path-element>
+		</source-path>
+
+		<locale>
+			<locale-element>@LOCALE@</locale-element>
+		</locale>
+		
+		<fonts>
+			<managers>
+				<manager-class>flash.fonts.AFEFontManager</manager-class>
+			</managers>
+		</fonts>
+
+		<keep-as3-metadata append="true">
+			<name>ArrayElementType</name>
+			<name>Serializable</name>
+			<name>DontSerialize</name>
+			<name>DefaultProperty</name>
+			<name>Alias</name>
+		</keep-as3-metadata>
+
+		<define>
+			<name>LOGGER::debug</name>
+			<value>@DEBUG@</value>
+		</define>
+		
+	</compiler>
+</flex-config>
