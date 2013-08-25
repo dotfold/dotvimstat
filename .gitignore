@@ -3,6 +3,10 @@
 
 # Build and Release Folders
 target/*
+html-template
+.FlexUnitSettings
+build/build.number
+src/main/actionscript/FlexUnitApplication.as
 
 # Other files and folders
 .settings/
