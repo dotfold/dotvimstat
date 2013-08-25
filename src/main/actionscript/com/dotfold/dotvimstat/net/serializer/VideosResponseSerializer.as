@@ -2,9 +2,7 @@ package com.dotfold.dotvimstat.net.serializer
 {
 	import asx.array.forEach;
 	
-	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONDecoder;
-	import com.dotfold.dotvimstat.model.BaseEntity;
 	import com.dotfold.dotvimstat.model.VideoEntity;
 
 	/**
@@ -13,7 +11,7 @@ package com.dotfold.dotvimstat.net.serializer
 	 * @author jamesmcnamee
 	 * 
 	 */	
-	public class VideosResponseSerializer implements IResponseSerializer
+	public class VideosResponseSerializer extends BaseSerializer implements IResponseSerializer
 	{
 		/**
 		 * Serialize the response JSON data.
@@ -22,38 +20,19 @@ package com.dotfold.dotvimstat.net.serializer
 		public function serialize(data:*):*
 		{
 			var decoder:JSONDecoder = new JSONDecoder(data);
-			var s:* = decoder.getValue();
+			var videos:* = decoder.getValue();
 			
 			var result:Array = [];
 			
-			forEach(s, function(item:*):void
+			forEach(videos, function(item:*):void
 			{
-				var entity:VideoEntity = serializeVideo(item);
+				var entity:VideoEntity = new VideoEntity();
+				serializeFieldsTo(videos, entity);
 				result.push(entity);	
 			});
 			
 			return result;
 			
-		}
-		
-		/**
-		 * @private
-		 * Serializes and individual video item.
-		 * @return VideoEntity
-		 */		
-		private function serializeVideo(item:*):VideoEntity
-		{
-			var entity:VideoEntity = new VideoEntity();
-			
-			for (var key:* in item)
-			{
-				if (entity.hasOwnProperty(key))
-				{
-					entity[key] = item[key]; 
-				}
-			}
-			
-			return entity;
 		}
 	}
 }
