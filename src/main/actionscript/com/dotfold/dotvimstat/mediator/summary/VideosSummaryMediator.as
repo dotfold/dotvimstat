@@ -1,6 +1,8 @@
 package com.dotfold.dotvimstat.mediator.summary
 {
 	import com.dotfold.dotvimstat.mediator.Mediator;
+	import com.dotfold.dotvimstat.model.UserInfoEntity;
+	import com.dotfold.dotvimstat.model.VideoEntity;
 	import com.dotfold.dotvimstat.net.service.IVimeoService;
 	import com.dotfold.dotvimstat.view.summary.VideosSummary;
 	
@@ -8,22 +10,23 @@ package com.dotfold.dotvimstat.mediator.summary
 	import org.as3commons.logging.LoggerFactory;
 	
 	/**
+	 * Mediator for VideosSummary view.
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class VideosSummaryMediator extends Mediator
 	{
 		private static var logger:ILogger = LoggerFactory.getClassLogger(VideosSummaryMediator);
 		
 		[Inject]
-		public var service:IVimeoService;
+		public var user:UserInfoEntity;
 		
 		public var view:VideosSummary;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function VideosSummaryMediator()
 		{
 			super();
@@ -32,32 +35,19 @@ package com.dotfold.dotvimstat.mediator.summary
 		/**
 		 * @inheritDoc
 		 * Retrieve the videos via the VimeoService.
-		 */		
+		 */
 		override public function init():void
 		{
-			logger.debug('init, calling service: {0}', service);
-
-			service.getVideos()
-				.then(videosDataLoaded, videosDataLoadError);
+			displayVideosCount();
+			view.show();
 		}
 		
 		/**
-		 * 
-		 */		
-		private function videosDataLoaded(result:Array):void
+		 * Displays the number of videos owned by this User.
+		 */
+		private function displayVideosCount():void
 		{
-			logger.debug('service responded fulfilled {0}', result);
-			
-			view.videosCount = result ? result.length : 0;
-		}
-		
-		/**
-		 * 
-		 */		
-		private function videosDataLoadError(error:*):void
-		{
-			// process error
-			// notify view of error
+			view.videosCount = user.total_videos_uploaded;
 		}
 	}
 }
