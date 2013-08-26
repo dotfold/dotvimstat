@@ -14,13 +14,13 @@
 					<videosSummary style="summaryView" />
 				</titleContainer>
 
-				<titleContainer style="summaryContainer" title="Activity">
+				<titleContainer style="summaryContainer" title="Likes &amp; Follows">
 					<activitySummary style="summaryView" />
 				</titleContainer>
 
 			</vbox>
 
-			<vbox style="box2" />
+			<titleContainer style="box2" title="moogaloop" />
 
 		</hbox>
 

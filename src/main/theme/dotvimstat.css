@@ -22,11 +22,6 @@
 	height: 100%;
 }
 
-.summaryTitle {
-	color: #a6a6a6;
-	fontSize: 14;
-}
-
 .summaryContainer {
 	backgroundAlpha: 0.3;
 	backgroundColor: #f3f3f3;
@@ -43,10 +38,21 @@
 	height: 100%;
 	alignX: 50%;
 	alignY: 50%;
+	spacing: 4;
 }
 
-.summaryCount {
-	fontSize: 26;
+.summaryTitle {
+	color: #a6a6a6;
+	fontSize: 14;
+}
+
+.summaryDetail {
+	fontSize: 34;
+	color: #f3f3f3;
+}
+
+.summarySmall {
+	fontSize: 16;
 	color: #f3f3f3;
 }
 
