@@ -27,8 +27,6 @@
 
 		<!-- Inform user -->
 		<echo message="Project:       		${ant.project.name}" />
-		<echo message="Hostname:      		${hostname}" />
-		<echo message="Building with: 		${hostname}-build.properties" />
 		<echo message="Java version:  		${java.version}" />
 		<echo message="Flex SDK:      		${FLEX_HOME}" />
 		<echo message="Flash Version: 		${flash.targetVersion}" />
@@ -75,7 +73,7 @@
 				<filter value="${build.about}" token="ABOUT" />
 				<filter value="${build.number}" token="BUILD_NUMBER" />
 				<filter value="${today.formatted}" token="BUILD_DATE" />
-				<filter value="${hostname}" token="CREATOR" />
+				<filter value="${creator}" token="CREATOR" />
 				<filter value="${build.locale}" token="LOCALE" />
 				<filter value="${build.name}" token="NAME" />
 				<filter value="${build.version}" token="VERSION" />
@@ -92,7 +90,7 @@
 				<filter value="${build.about}" token="ABOUT" />
 				<filter value="${build.number}" token="BUILD_NUMBER" />
 				<filter value="${today.formatted}" token="BUILD_DATE" />
-				<filter value="${hostname}" token="CREATOR" />
+				<filter value="${creator}" token="CREATOR" />
 				<filter value="${build.locale}" token="LOCALE" />
 				<filter value="${build.name}" token="NAME" />
 				<filter value="${build.version}" token="VERSION" />
