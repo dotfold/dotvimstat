@@ -17,16 +17,15 @@ package com.dotfold.dotvimstat.net.service
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class VimeoBasicService implements IVimeoService
 	{
 		private static var logger:ILogger = LoggerFactory.getClassLogger(VimeoBasicService);
 		
-		
 		[Inject]
 		/**
 		 * HTTPClient used for API communications.
-		 */		
+		 */
 		public function set http(value:HTTPClient):void
 		{
 			_http = value;
@@ -42,7 +41,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Default name value pairs used in common URL endpoints. 
-		 */		
+		 */
 		protected function get urlDefaults():Object
 		{
 			return {
@@ -54,7 +53,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function VimeoBasicService()
 		{
 			super();
@@ -62,7 +61,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Set up the named resource mappings on the HTTPClient.
-		 */		
+		 */
 		private function initialiseMappings():void
 		{
 			http.mapUrl("videos", 
@@ -79,13 +78,21 @@ package com.dotfold.dotvimstat.net.service
 			)
 			.addReponseSerializer(new LikesResponseSerializer());
 			
-			http.mapUrl("activity", 
+			http.mapUrl("activityDid", 
 				merge(urlDefaults, {
 					application: 'api/v2/activity',
 					resource: 'user_did.json'
 				})
 			)
 			.addReponseSerializer(new ActivityResponseSerializer());
+			
+			http.mapUrl("activityHappened", 
+				merge(urlDefaults, {
+					application: 'api/v2/activity',
+					resource: 'happened_to_user.json'
+				})
+			)
+				.addReponseSerializer(new ActivityResponseSerializer());
 			
 			http.mapUrl("info", 
 				merge(urlDefaults, {
@@ -101,7 +108,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Retrieves the `info` for the set username.
-		 */		
+		 */
 		public function getInfo():Promise
 		{
 			logger.debug('getInfo');
@@ -111,7 +118,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Retrieves the `videos` listing for the set username.
-		 */		
+		 */
 		public function getVideos():Promise
 		{
 			logger.debug('getVideos');
@@ -121,7 +128,7 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Retrieves the `likes` listing for the set username.
-		 */		
+		 */
 		public function getLikes():Promise
 		{
 			logger.debug('getLikes');
@@ -131,12 +138,22 @@ package com.dotfold.dotvimstat.net.service
 		
 		/**
 		 * Retrieves the user activity listing for the set username.
-		 */		
-		public function getActivity():Promise
+		 */
+		public function getActivityDid():Promise
 		{
-			logger.debug('getActivity');
+			logger.debug('getActivityDid');
 			
-			return http.get("activity");
+			return http.get("activityDid");
+		}
+		
+		/**
+		 * Retrieves the activity that happened to the user.
+		 */
+		public function getActivityHappened():Promise
+		{
+			logger.debug('getActivityHappened');
+			
+			return http.get("activityHappened");
 		}
 		
 	}

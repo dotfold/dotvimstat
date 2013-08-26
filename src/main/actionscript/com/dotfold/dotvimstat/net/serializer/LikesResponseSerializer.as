@@ -18,7 +18,7 @@ package com.dotfold.dotvimstat.net.serializer
 		 */		
 		public function serialize(data:*):*
 		{
-			var decoder:JSONDecoder = new JSONDecoder(data);
+			var decoder:JSONDecoder = new JSONDecoder(data, true);
 			var likes:* = decoder.getValue();
 			
 			var result:Array = [];

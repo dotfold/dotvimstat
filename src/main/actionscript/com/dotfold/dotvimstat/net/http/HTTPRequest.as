@@ -17,17 +17,23 @@ package com.dotfold.dotvimstat.net.http
 	import org.as3commons.logging.ILogger;
 	import org.as3commons.logging.LoggerFactory;
 
+	/**
+	 * HTTPRequest encapsulates the logic needed to make a request
+	 * to the Vimeo API service.
+	 *  
+	 * @author jamesmcnamee
+	 * 
+	 */	
 	public class HTTPRequest
 	{
 		private static var logger:ILogger = LoggerFactory.getClassLogger(HTTPRequest);
 		
 		private var _url:String;
 		private var _deferred:Deferred;
-		private var _responseTransformerFunction:Function;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function HTTPRequest()
 		{
 			super();
@@ -37,7 +43,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * URL to call.
-		 */		
+		 */
 		public function set url(value:String):void
 		{
 			_url = value;
@@ -46,16 +52,8 @@ package com.dotfold.dotvimstat.net.http
 		}
 		
 		/**
-		 * If set, the raw response data will be passed to this function.
-		 */		
-		public function set responseTransformerFunction(value:Function):void
-		{
-			_responseTransformerFunction = value;
-		}
-		
-		/**
 		 * Builds a URLLoader.
-		 */		
+		 */
 		protected function getLoader():URLLoader
 		{
 			var loader:URLLoader = new URLLoader();
@@ -66,7 +64,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Builds a URLRequest.
-		 */		
+		 */
 		protected function getRequest():URLRequest
 		{
 			var request:URLRequest = new URLRequest();
@@ -77,8 +75,10 @@ package com.dotfold.dotvimstat.net.http
 		}
 		
 		/**
+		 * Builds up the request objects and makes the request.
 		 * 
-		 */		
+		 * @return Promise promise from the internal <code>Deferred</code>
+		 */
 		public function send():Promise
 		{
 			logger.debug('send');
@@ -94,7 +94,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Add listeners to loader object.
-		 */		
+		 */
 		private function addLoaderListenersTo(loader:URLLoader):void
 		{
 			loader.addEventListener(Event.OPEN, urlLoader_openHandler);
@@ -107,7 +107,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Remove all listeners from the loader object.
-		 */		
+		 */
 		private function removeLoaderListenersFrom(loader:URLLoader):void
 		{
 			loader.removeEventListener(Event.OPEN, urlLoader_openHandler);
@@ -119,8 +119,8 @@ package com.dotfold.dotvimstat.net.http
 		}
 		
 		/**
-		 * Loader complete.
-		 */		
+		 * Loader complete. Resolve the <code>Deferred</code>.
+		 */
 		private function urlLoader_completeHandler(event:Event):void
 		{
 			var loader:URLLoader = event.target as URLLoader;
@@ -129,26 +129,21 @@ package com.dotfold.dotvimstat.net.http
 			logger.debug('request complete');
 			
 			var result:* = loader.data;
-//			var serializer:* = JSONResponseSerializer.unmarshall(result);
-//			if ()
-//			{
-//				result = _responseTransformerFunction(result);
-//			}
 			
 			_deferred.resolve(result);
 		}
 		
 		/**
-		 * HTTP Status.
-		 */		
+		 * HTTP Status event.
+		 */
 		private function urlLoader_httpStatusHandler(event:HTTPStatusEvent):void
 		{
 			logger.debug('request httpStatus: {0}', event.status);
 		}
 		
 		/**
-		 * IOError.
-		 */		
+		 * IOError event.
+		 */
 		private function urlLoader_ioErrorHandler(event:IOErrorEvent):void
 		{
 			removeLoaderListenersFrom(event.target as URLLoader);
@@ -160,7 +155,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * HTTP opened.
-		 */		
+		 */
 		private function urlLoader_openHandler(event:Event):void
 		{
 			logger.debug('http request opened');
@@ -168,15 +163,15 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Progress events.
-		 */		
+		 */
 		private function urlLoader_progressHandler(event:ProgressEvent):void
 		{
 //			logger.debug('request progress {0} / {1}', event.bytesLoaded, event.bytesTotal);
 		}
 		
 		/**
-		 * Security error.
-		 */		
+		 * Security error event.
+		 */
 		private function urlLoader_securityErrorHandler(event:SecurityErrorEvent):void
 		{
 			removeLoaderListenersFrom(event.target as URLLoader);

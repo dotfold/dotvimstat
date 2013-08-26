@@ -8,20 +8,25 @@ package com.dotfold.dotvimstat.net.http
 	import org.as3commons.logging.LoggerFactory;
 
 	/**
+	 * HTTPClient is the base class for generating HTTP requests.
+	 * 
+	 * Endpoints are mapped via this class and generate a named mapping,
+	 * containing the information needed to make the request.
+	 * 
+	 * The only RESTful method implemented at this time is GET.
 	 * 
 	 * @author jamesmcnamee
 	 * 
 	 */	
 	public class HTTPClient
 	{
-		
 		private static var logger:ILogger = LoggerFactory.getClassLogger(HTTPClient);
 		
 		private var _namedResourceMap:Dictionary;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function HTTPClient()
 		{
 			super();
@@ -38,7 +43,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Returns the Dictionary of named resource mappings.
-		 */		
+		 */
 		public function get namedResourceMap():Dictionary
 		{
 			return _namedResourceMap;
@@ -46,7 +51,7 @@ package com.dotfold.dotvimstat.net.http
 
 		/**
 		 * Map a named resource to a URL endpoint.
-		 */		
+		 */
 		public function mapUrl(name:String, data:Object):NamedRequestMapping
 		{
 			var mapping:NamedRequestMapping = new NamedRequestMapping();
@@ -59,7 +64,7 @@ package com.dotfold.dotvimstat.net.http
 		
 		/**
 		 * Replaces named token strings in a template string.
-		 */		
+		 */
 		protected function replaceNamedTokens(template:String, data:Object):String
 		{
 			var pattern:RegExp = new RegExp('{([^}]+)}', 'gi');
@@ -83,10 +88,7 @@ package com.dotfold.dotvimstat.net.http
 		 * 
 		 * @param resource String the name of the resource to retrieve from the mapping.
 		 * 
-		 * <listing version="3.0">
-		 * 
-		 * </listing>
-		 */		
+		 */
 		public function get(resource:String, params:Object = null):Promise
 		{
 			var mapped:NamedRequestMapping = _namedResourceMap[resource];
@@ -99,7 +101,7 @@ package com.dotfold.dotvimstat.net.http
 		/**
 		 * Retrieves the NamedRequestMapping for the resource name.
 		 * @return HTTPRequest
-		 */		
+		 */
 		protected function requestFor(resourceName:String):HTTPRequest
 		{
 			var mapping:NamedRequestMapping = _namedResourceMap[resourceName];
