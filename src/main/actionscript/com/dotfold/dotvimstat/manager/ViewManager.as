@@ -1,8 +1,10 @@
 package com.dotfold.dotvimstat.manager
 {
 	import com.dotfold.dotvimstat.mediator.IMediator;
+	import com.dotfold.dotvimstat.mediator.moogaloop.MoogaloopMediator;
 	import com.dotfold.dotvimstat.mediator.summary.*;
 	import com.dotfold.dotvimstat.view.IView;
+	import com.dotfold.dotvimstat.view.moogaloop.MoogaloopContainer;
 	import com.dotfold.dotvimstat.view.summary.*;
 	
 	import flash.display.Stage;
@@ -100,6 +102,8 @@ package com.dotfold.dotvimstat.manager
 			map[VideosSummary] 		= VideosSummaryMediator;
 			map[ActivitySummary] 	= ActivitySummaryMediator;
 			map[UserSummary] 		= UserSummaryMediator;
+			
+			map[MoogaloopContainer]	= MoogaloopMediator;
 			
 			return map;
 		}

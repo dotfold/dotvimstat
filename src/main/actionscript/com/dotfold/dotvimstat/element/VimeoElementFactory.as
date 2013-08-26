@@ -1,6 +1,7 @@
 package com.dotfold.dotvimstat.element
 {
 	import com.dotfold.dotvimstat.view.container.TitleContainer;
+	import com.dotfold.dotvimstat.view.moogaloop.MoogaloopContainer;
 	import com.dotfold.dotvimstat.view.summary.ActivitySummary;
 	import com.dotfold.dotvimstat.view.summary.UserSummary;
 	import com.dotfold.dotvimstat.view.summary.VideosSummary;
@@ -45,6 +46,7 @@ package com.dotfold.dotvimstat.element
 			mapView(UserSummary.ELEMENT_NAME, UserSummary);	
 			mapView(VideosSummary.ELEMENT_NAME, VideosSummary);
 			mapView(ActivitySummary.ELEMENT_NAME, ActivitySummary);
+			mapView(MoogaloopContainer.ELEMENT_NAME, MoogaloopContainer);
 		}
 	}
 }
