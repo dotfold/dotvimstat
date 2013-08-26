@@ -1,23 +1,17 @@
 package com.dotfold.dotvimstat.view.summary
 {
-	import com.dotfold.dotvimstat.model.UserInfoEntity;
 	import com.dotfold.dotvimstat.model.image.EntityImage;
 	import com.dotfold.dotvimstat.view.IView;
-	import com.greensock.TweenLite;
+	import com.dotfold.dotvimstat.view.animation.ElementAnimationSequencer;
+	import com.dotfold.dotvimstat.view.event.UserSummaryEvent;
 	
-	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Loader;
 	import flash.display.Shape;
 	import flash.events.Event;
-	import flash.filters.BitmapFilterQuality;
-	import flash.filters.BlurFilter;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
-	import flash.system.LoaderContext;
 	
-	import modena.core.Element;
 	import modena.core.ElementContent;
 	import modena.ui.Label;
 	import modena.ui.Stack;
@@ -27,16 +21,20 @@ package com.dotfold.dotvimstat.view.summary
 	 *  
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class UserSummary extends Stack implements IView
 	{
 		public static const ELEMENT_NAME:String = "userSummary";
 		
+		[Inject]
+		public var animationQueue:ElementAnimationSequencer;
+		
 		private var _userNameLabel:Label;
+		private var _loader:Loader;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function UserSummary()
 		{
 			super();
@@ -44,25 +42,32 @@ package com.dotfold.dotvimstat.view.summary
 		
 		/**
 		 * @inheritDocs
-		 */		
+		 */
 		override protected function createElementContent():ElementContent
 		{
 			var content:ElementContent = super.createElementContent();
 			
 			_loader = new Loader();
-			content.addChild(_loader);
+			_loader.alpha = 0;
 			
 			_userNameLabel = new Label("titleLabel");
+			_userNameLabel.alpha = 0;
+			
+			setupClickHandler();
+
+			mouseEnabled = true;
+			buttonMode = true;
+			useHandCursor = true;
+			
+			content.addChild(_loader);
 			content.addChild(_userNameLabel);
 			
 			return content;
 		}
 		
-		private var _loader:Loader;
-		
 		/**
-		 * 
-		 */		
+		 * Update the username label text.
+		 */
 		public function set displayName(value:String):void
 		{
 			_userNameLabel.text = value;
@@ -70,55 +75,88 @@ package com.dotfold.dotvimstat.view.summary
 			invalidateRender();
 		}
 		
+		/**
+		 * Sets the image URL and triggers the load operation for the image.
+		 */
 		public function set image(value:EntityImage):void
 		{
 			loadUserImage(value.url);
 		}
 		
-		private function loadUserImage(url:String):void
+		/**
+		 * Set up the <code>MouseEvent</code> handler on the click element.
+		 */
+		private function setupClickHandler():void
 		{
-			_loader.alpha = 0;
-			
-			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadComplete);
-			_loader.load(new URLRequest(url));
-
+			addEventListener(MouseEvent.CLICK, elementClickHandler);
 		}
 		
+		/**
+		 * Dispatches <code>UserSummaryEvent.VISIT_PROFILE</code> to Mediator.
+		 */
+		private function elementClickHandler(event:MouseEvent):void
+		{
+			dispatchEvent(new UserSummaryEvent(UserSummaryEvent.VISIT_PROFILE));
+		}
+		
+		/**
+		 * Loads the user image.
+		 */
+		private function loadUserImage(url:String):void
+		{
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadComplete);
+			_loader.load(new URLRequest(url));
+		}
+		
+		/**
+		 * Add elements to the sequencer and start animation.
+		 */
+		private function animateElements():void
+		{
+			animationQueue
+				.addElement(_loader)
+				.addElement(_userNameLabel)
+				.play();
+		}
+		
+		/**
+		 * Image load completed successfully. Sets up mask and
+		 * adds to the display list.
+		 */
 		private function loadComplete(event:Event):void
 		{
 			validationManager.validateNow();
 			
-			var mask:Shape = new Shape();
-			var g:Graphics = mask.graphics;
-			g.clear();
-			g.beginFill(0x00ff00, 0.0);
-			g.drawRect(0, 0, width, height);
-			g.endFill();
+			var imageIndex:int = getChildIndex(_loader);
 			
-			content.addChild(mask);
+			var mask:Shape = new Shape();
+			paintShape(mask);
+			
+			content.addChildAt(mask, imageIndex);
 			_loader.mask = mask;
 			
 			_loader.x = 0;
 			_loader.y = 0;
 			
-			TweenLite.to(_loader, 0.6, { alpha: 0.7 });
-			
 			var overlay:Shape = new Shape();
-			g = overlay.graphics;
-			g.clear();
-			g.beginFill(0x000000, 0.5);
-			g.drawRect(0, 0, width, height);
-			g.endFill();
-			content.addChildAt(overlay, 1);
+			paintShape(overlay, 0x000000, 0.5);
+			
+			content.addChildAt(overlay, getChildIndex(_userNameLabel));
+			
+			animateElements();
 		}
 		
 		/**
-		 * 
-		 */		
-		override public function validateRender():void
+		 * Paints a <code>Shape</code> Graphics with fill.
+		 */
+		private function paintShape(element:Shape, color:uint = 0x000000, alpha:Number = 0.0):void
 		{
-			super.validateRender();
+			var g:Graphics = element.graphics;
+			g.clear();
+			g.beginFill(color, alpha);
+			g.drawRect(0, 0, width, height);
+			g.endFill();
 		}
-	
+		
 	}
 }

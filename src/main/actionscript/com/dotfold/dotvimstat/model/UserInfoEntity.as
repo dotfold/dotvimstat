@@ -1,22 +1,31 @@
 package com.dotfold.dotvimstat.model
 {
+	import com.dotfold.dotvimstat.model.enum.ImageSize;
 	import com.dotfold.dotvimstat.model.image.EntityImage;
 	import com.dotfold.dotvimstat.model.image.EntityImageCollection;
 	
 	/**
+	 * Model class for Vimeo User info.
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class UserInfoEntity extends BaseEntity
 	{
+		/**
+		 * Constructor.
+		 */		
 		public function UserInfoEntity()
 		{
 			super();
 		}
 		
+		//
+		//	Properties
+		//
+		
 		public var display_name:String;
-		public var created_on:String;
+		public var created_on:Date;
 		public var is_staff:Boolean;
 		public var is_plus:Boolean;
 		public var is_pro:Boolean;
@@ -32,6 +41,10 @@ package com.dotfold.dotvimstat.model
 		public var total_albums:int;
 		public var total_channels:int;
 		
+		//
+		// Images
+		//
+		
 		private var _portrait_small:String
 		public function get portrait_small():String
 		{
@@ -44,7 +57,7 @@ package com.dotfold.dotvimstat.model
 			
 			var image:EntityImage = new EntityImage();
 			image.url = value;
-			image.size = 'small';
+			image.size = ImageSize.SMALL;
 			images.addItem(image);
 		}
 		
@@ -60,7 +73,7 @@ package com.dotfold.dotvimstat.model
 			
 			var image:EntityImage = new EntityImage();
 			image.url = value;
-			image.size = 'medium';
+			image.size = ImageSize.MEDIUM;
 			images.addItem(image);
 		}
 		
@@ -76,7 +89,7 @@ package com.dotfold.dotvimstat.model
 			
 			var image:EntityImage = new EntityImage();
 			image.url = value;
-			image.size = 'large';
+			image.size = ImageSize.LARGE;
 			images.addItem(image);
 		}
 		
@@ -92,7 +105,7 @@ package com.dotfold.dotvimstat.model
 			
 			var image:EntityImage = new EntityImage();
 			image.url = value;
-			image.size = 'huge';
+			image.size = ImageSize.HUGE;
 			images.addItem(image);
 		}
 		
