@@ -1,13 +1,10 @@
 package com.dotfold.dotvimstat.view.summary
 {
-	import asx.string.empty;
-	
-	import com.dotfold.dotvimstat.net.service.VimeoBasicService;
 	import com.dotfold.dotvimstat.view.IView;
-	import com.greensock.TweenLite;
+	import com.dotfold.dotvimstat.view.animation.ElementAnimationSequencer;
 	
-	import modena.core.Element;
 	import modena.core.ElementContent;
+	import modena.ui.HBox;
 	import modena.ui.Label;
 	
 	/**
@@ -15,16 +12,20 @@ package com.dotfold.dotvimstat.view.summary
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
-	public class VideosSummary extends Element implements IView
+	 */
+	public class VideosSummary extends HBox implements IView
 	{
 		public static const ELEMENT_NAME:String = "videosSummary";
 		
-		private var _label:Label;
+		private var _numVideos:Label;
+		private var _staticText:Label;
+		
+		[Inject]
+		public var animationQueue:ElementAnimationSequencer;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function VideosSummary(styleClass:String = null)
 		{
 			super(styleClass);
@@ -32,36 +33,51 @@ package com.dotfold.dotvimstat.view.summary
 		
 		/**
 		 * @inheritDoc
-		 */		
+		 */
 		override protected function createElementContent():ElementContent
 		{
 			var content:ElementContent = super.createElementContent();
 			
-			_label = new Label("summaryCount");
-			content.addChild(_label);
-			_label.alpha = 0;
+			_numVideos = new Label("summaryDetail");
+			_numVideos.alpha = 0;
+			
+			_staticText = new Label("summarySmall");
+			_staticText.text = "total videos";
+			_staticText.alpha = 0;
+			
+			content.addChild(_numVideos);
+			content.addChild(_staticText);
 			
 			return content;
 		}
 		
 		/**
-		 * Update the label with count of videos.
-		 */		
+		 * Called from Mediator once data load is complete.
+		 */
+		public function show():void
+		{
+			runAnimationQueue();
+		}
+		
+		/**
+		 * Update the num videos label.
+		 */
 		public function set videosCount(value:int):void
 		{
-			_label.text = value.toString();
+			_numVideos.text = value.toString();
 			
-			TweenLite.to(_label, 0.4, { alpha: 1, ease: 'easeInQuad' }); 
 			invalidateRender();
 		}
 		
-		override public function validateRender():void
+		/**
+		 * Add elements to the animation queue and start. 
+		 */
+		private function runAnimationQueue():void
 		{
-			super.validateRender();
-			
-			_label.x = (width - _label.width) / 2;
-			_label.y = (height - _label.height) / 2;
+			animationQueue
+				.addElement(_numVideos)
+				.addElement(_staticText)
+				.play();
 		}
-		
 	}
 }
