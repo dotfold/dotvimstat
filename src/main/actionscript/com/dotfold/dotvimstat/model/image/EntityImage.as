@@ -1,27 +1,41 @@
 package com.dotfold.dotvimstat.model.image
 {
+	import com.dotfold.dotvimstat.model.enum.ImageSize;
+	
+	import flash.utils.Dictionary;
+	
+	/**
+	 * Defines properties for a Vimeo Image.
+	 *  
+	 * @author jamesmcnamee
+	 * 
+	 */
 	public class EntityImage
 	{
+		/**
+		 * Map of size names to dimension.
+		 */		
+		public static const ENTITY_IMAGE_SIZES:Dictionary = new Dictionary();
 		
-		public static const sizes:Object = {
-			'small': 30,
-			'medium': 75,
-			'large': 100,
-			'huge': 300
-		}
-		
+		ENTITY_IMAGE_SIZES[ImageSize.SMALL] = 30;
+		ENTITY_IMAGE_SIZES[ImageSize.MEDIUM] = 75;
+		ENTITY_IMAGE_SIZES[ImageSize.LARGE] = 100;
+		ENTITY_IMAGE_SIZES[ImageSize.HUGE] = 300;
 		
 		private var _url:String;
-		private var _size:String;
+		private var _size:ImageSize;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function EntityImage()
 		{
 			super();
 		}
 		
+		/**
+		 * Absolute URL to the image resource.
+		 */
 		public function get url():String
 		{
 			return _url;
@@ -33,21 +47,26 @@ package com.dotfold.dotvimstat.model.image
 		}
 		
 		/**
-		 * 
-		 */		
-		public function get size():String
+		 * ImageSize Enum for this Entity.
+		 */
+		public function get size():ImageSize
 		{
 			return _size;	
 		}
 		
-		public function set size(value:String):void
+		public function set size(value:ImageSize):void
 		{
 			_size = value;
 		}
 		
+		/**
+		 * Returns integer of the dimension for the given size of this image.
+		 * 
+		 * Assumes that all Vimeo images are processed to the same size, and are square.
+		 */
 		public function get dimension():int
 		{
-			return EntityImage.sizes[size];
+			return ENTITY_IMAGE_SIZES[size];
 		}
 		
 	}

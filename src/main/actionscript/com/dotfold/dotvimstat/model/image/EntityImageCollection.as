@@ -2,33 +2,36 @@ package com.dotfold.dotvimstat.model.image
 {
 	import asx.array.reduce;
 	
+	import com.dotfold.dotvimstat.model.enum.ImageSize;
+	
 	import flash.utils.Dictionary;
 
+	
+	/**
+	 * Collection class for a list of <code>EntityImage</code>.
+	 *  
+	 * @author jamesmcnamee
+	 * 
+	 */
 	public class EntityImageCollection
 	{
 		private var _list:Array;
 		
-		private var _sizeNames:Dictionary;
+		protected var sizes:Array = [30, 75, 100, 300];
 		
 		/**
 		 * Constructor. 
-		 */		
+		 */
 		public function EntityImageCollection(list:Array = null)
 		{
 			super();
 			
 			_list = list;
-			
-			_sizeNames = new Dictionary();
-			_sizeNames[30] = 'small';
-			_sizeNames[75] = 'medium';
-			_sizeNames[100] = 'large';
-			_sizeNames[300] = 'huge';
 		}
 		
 		/**
-		 * 
-		 */		
+		 * Adds an item to the internal collection, and sorts on the <code>dimension</code> field.
+		 */
 		public function addItem(item:Object):void
 		{
 			_list ||= [];
@@ -36,16 +39,40 @@ package com.dotfold.dotvimstat.model.image
 			_list.sortOn('dimension', Array.NUMERIC);
 		}
 		
+		/**
+		 * Retrieves an <code>EntityImage</code> from the list corresponding to the 
+		 * supplied size parameter.
+		 * 
+		 * @param size ImageSize Enum of desired image size.
+		 */
+		public function getImageForSize(size:ImageSize):EntityImage
+		{
+			var dimension:int = EntityImage.ENTITY_IMAGE_SIZES[size];
+			var index:int = sizes.indexOf(dimension);
+			
+			var image:EntityImage;
+			if (index != -1)
+			{
+				image = _list[index];
+			}
+			
+			return image;
+		}
+		
+		/**
+		 * Returns the sorted <code>Array</code> of <code>EntityImage</code>.
+		 */
 		public function get list():Array
 		{
 			return _list;
 		}
 		
-		protected var sizes:Array = [30, 75, 100, 300];
-		
 		/**
+		 * Binary Search for the closest <code>EntityImage</code> to the
+		 * supplied width parameter.
 		 * 
-		 */		
+		 * Assumes that all Vimeo images are square, so width and height are the same value.
+		 */
 		public function findClosestMatchForWidth(width:int):*
 		{
 			var low:int = 0;
