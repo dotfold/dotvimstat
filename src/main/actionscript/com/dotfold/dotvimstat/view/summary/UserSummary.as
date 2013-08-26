@@ -139,7 +139,7 @@ package com.dotfold.dotvimstat.view.summary
 			_loader.y = 0;
 			
 			var overlay:Shape = new Shape();
-			paintShape(overlay, 0x000000, 0.5);
+			paintShape(overlay, 0x000000, 0.65);
 			
 			content.addChildAt(overlay, getChildIndex(_userNameLabel));
 			
