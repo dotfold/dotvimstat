@@ -24,6 +24,9 @@ package com.dotfold.dotvimstat.mediator
 			_enabled = true;
 		}
 		
+		/**
+		 * Sets the view property on this mediator if availble.
+		 */
 		public function setView(element:Element):void 
 		{
 			if (hasOwnProperty("view"))
@@ -33,11 +36,11 @@ package com.dotfold.dotvimstat.mediator
 		}
 		
 		/**
-		 * Called from ViewManager.
+		 * Abstract method. Called from ViewManager.
 		 */
 		public function init():void
 		{
-			// override
+			// override in subclass
 		}
 		
 		/**
@@ -48,6 +51,9 @@ package com.dotfold.dotvimstat.mediator
 			setView(null);
 		}
 		
+		/**
+		 * Returns the enabled state.
+		 */
 		public function get enabled():Boolean
 		{
 			return _enabled;

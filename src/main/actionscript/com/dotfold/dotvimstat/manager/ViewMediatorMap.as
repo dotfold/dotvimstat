@@ -42,7 +42,7 @@ package com.dotfold.dotvimstat.manager
 		
 		/**
 		 * Injector property. If none is set, return a new Injector.
-		 */		
+		 */
 		public function set injector(value:Injector):void
 		{
 			_injector = value;	

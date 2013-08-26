@@ -2,7 +2,6 @@ package com.dotfold.dotvimstat.element
 {
 	import com.dotfold.dotvimstat.view.container.TitleContainer;
 	import com.dotfold.dotvimstat.view.summary.ActivitySummary;
-	import com.dotfold.dotvimstat.view.summary.LikesSummary;
 	import com.dotfold.dotvimstat.view.summary.UserSummary;
 	import com.dotfold.dotvimstat.view.summary.VideosSummary;
 	
@@ -10,16 +9,17 @@ package com.dotfold.dotvimstat.element
 	import modena.core.Element;
 	
 	/**
+	 * ElementFactory sets up specific Element mappings for this Application.
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class VimeoElementFactory extends DefaultElementFactory
 	{
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function VimeoElementFactory()
 		{
 			super();
@@ -29,7 +29,7 @@ package com.dotfold.dotvimstat.element
 		 * @inheritDoc
 		 *  
 		 * Defines view mappings specific to this application.
-		 */		
+		 */
 		override protected function createTypeFactories():void
 		{
 			super.createTypeFactories();
@@ -44,7 +44,6 @@ package com.dotfold.dotvimstat.element
 			
 			mapView(UserSummary.ELEMENT_NAME, UserSummary);	
 			mapView(VideosSummary.ELEMENT_NAME, VideosSummary);
-			mapView(LikesSummary.ELEMENT_NAME, LikesSummary);
 			mapView(ActivitySummary.ELEMENT_NAME, ActivitySummary);
 		}
 	}

@@ -4,9 +4,11 @@ package
 	
 	import com.dotfold.dotvimstat.element.VimeoElementFactory;
 	import com.dotfold.dotvimstat.manager.ViewManager;
+	import com.dotfold.dotvimstat.model.UserInfoEntity;
 	import com.dotfold.dotvimstat.net.http.HTTPClient;
 	import com.dotfold.dotvimstat.net.service.IVimeoService;
 	import com.dotfold.dotvimstat.net.service.VimeoBasicService;
+	import com.dotfold.dotvimstat.view.animation.ElementAnimationSequencer;
 	
 	import flash.events.ContextMenuEvent;
 	import flash.events.Event;
@@ -24,6 +26,9 @@ package
 	[SWF(backgroundColor="#CCCCCC", width="854", height="480")]
 	
 	/**
+	 * Main Application file. Contains startup sequence to bootstrap the application.
+	 * 
+	 * @internal extends Modena Application.
 	 * 
 	 * @author jamesmcnamee
 	 * 
@@ -44,7 +49,7 @@ package
 		}
 		
 		/**
-		 * 
+		 * Application startup sequence.
 		 */		
 		private function initialise():void
 		{
@@ -55,7 +60,8 @@ package
 				[ initialiseContextMenu ],
 				[ initialiseViewManager ],
 				[ initialiseInjectorMappings ],
-				[ initialiseView ],
+				[ initialiseUser ],
+				[ initialiseView ]
 				]);
 		}
 		
@@ -83,12 +89,11 @@ package
 		}
 		
 		/**
-		 * 
+		 * Sets Runtime security settings, loads crossdomain policy file. 
 		 */		
 		private function initialiseSecuritySettings(next:Function):void
 		{
 			Security.allowDomain("*");
-//			Security.allowInsecureDomain("*");
 			Security.loadPolicyFile('http://vimeo.com/crossdomain.xml');
 			
 			next();
@@ -124,6 +129,9 @@ package
 			next();
 		}
 		
+		/**
+		 * Sets the Stage object on the ViewManager instance.
+		 */		
 		private function initialiseViewManager(next:Function):void
 		{
 			const viewManager:ViewManager = ViewManager.getInstance();
@@ -142,8 +150,6 @@ package
 			
 			bootstrap.addEventListener(Event.COMPLETE, function(event:Event):void
 			{
-				trace('bootstrap complete');
-				
 				bootstrap.removeEventListener(Event.COMPLETE, arguments.callee);
 				stage_resize();
 				
@@ -164,7 +170,7 @@ package
 		}
 		
 		/**
-		 * 
+		 * Set up the injector mappings used by the Application.
 		 */		
 		private function initialiseInjectorMappings(next:Function):void
 		{
@@ -175,9 +181,40 @@ package
 			_injector.map(ViewManager).toValue(ViewManager.getInstance());
 			_injector.map(HTTPClient);
 			_injector.map(IVimeoService).toType(VimeoBasicService);
+			_injector.map(ElementAnimationSequencer);
 			
 			next();
 		}
+		
+		/**
+		 * Retrieves the user from the Vimeo API. This is required for the
+		 * application to run.
+		 */		
+		private function initialiseUser(next:Function):void
+		{
+			var service:IVimeoService = new VimeoBasicService();
+			_injector.injectInto(service);
 			
+			// user is required, so the execution sequence is halted if there is an error
+			function handleServiceError(error:*):void
+			{
+				trace('Application will not start, error retrieving user from Vimeo API');
+			}
+			
+			service.getInfo()
+				.then(mapUserToInjector, handleServiceError)
+				.then(next);
+		}
+		
+		/**
+		 * User has been successfully retrieved from the Service, map the value to 
+		 * the injector.
+		 */		
+		private function mapUserToInjector(user:UserInfoEntity):void
+		{
+			_injector.map(UserInfoEntity).toValue(user);
+		}
+		
+		
 	}
 }

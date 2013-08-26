@@ -18,9 +18,13 @@ package com.dotfold.dotvimstat.manager
 	
 	/**
 	 * 
+	 * ViewManager for the Application. The ViewManager is responsible
+	 * for creating ManagedViews and initialising mediators for views
+	 * when the view is added to the Stage.
+	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class ViewManager
 	{
 		private static var _instance:ViewManager;
@@ -29,7 +33,7 @@ package com.dotfold.dotvimstat.manager
 		 * ViewManager constructor, takes internal class SingletonEnforcer.
 		 * 
 		 * This should not be called externally, instead use getInstance().
-		 */		
+		 */
 		public function ViewManager(singleton:SingletonEnforcer)
 		{
 			super();
@@ -45,7 +49,7 @@ package com.dotfold.dotvimstat.manager
 		
 		/**
 		 * Returns singleton instance of ViewManager.
-		 */		
+		 */
 		public static function getInstance():ViewManager
 		{
 			if (!_instance)
@@ -61,8 +65,9 @@ package com.dotfold.dotvimstat.manager
 		private static var logger:ILogger = LoggerFactory.getClassLogger(ViewManager);
 		
 		/**
-		 * 
-		 */		
+		 * Sets the Flash Stage object. Used for listening when child elements
+		 * are added and can be initialised.
+		 */
 		public function set stage(value:Stage):void
 		{
 			_stage = value;
@@ -70,8 +75,8 @@ package com.dotfold.dotvimstat.manager
 		}
 		
 		/**
-		 * 
-		 */		
+		 * Sets the Injector.
+		 */
 		public function set injector(value:Injector):void
 		{
 			_injector = value;
@@ -87,13 +92,12 @@ package com.dotfold.dotvimstat.manager
 		
 		/**
 		 * Creates a Dictionary of view classes and the Mediator to be created for them.
-		 */		
+		 */
 		private function mapViewToMediatorClass():Dictionary
 		{
 			var map:Dictionary = new Dictionary();
 			
 			map[VideosSummary] 		= VideosSummaryMediator;
-			map[LikesSummary] 		= LikesSummaryMediator;
 			map[ActivitySummary] 	= ActivitySummaryMediator;
 			map[UserSummary] 		= UserSummaryMediator;
 			
@@ -138,6 +142,8 @@ package com.dotfold.dotvimstat.manager
 			
 			if (view is IView)
 			{
+				_injector.injectInto(view);
+				
 				// allow multiples, return a list
 				var mediators:Vector.<IMediator> = _viewMediatorMap.registerMediators(view);
 				mediators.forEach(function(mediator:IMediator, i:int, v:Vector.<IMediator>):void

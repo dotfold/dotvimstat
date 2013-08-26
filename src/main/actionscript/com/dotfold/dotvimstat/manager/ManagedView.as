@@ -1,8 +1,5 @@
 package com.dotfold.dotvimstat.manager
 {
-	import asx.array.every;
-	import asx.array.forEach;
-	
 	import com.dotfold.dotvimstat.mediator.IMediator;
 	
 	import modena.core.Element;
@@ -11,10 +8,6 @@ package com.dotfold.dotvimstat.manager
 	
 	/**
 	 * Manages a View by deferring to implementations of IMediator, IVisibilityMediator, IAnimationMediator.
-	 *
-	 * @see com.movideo.player.mediator.IMediator
-	 * @see com.movideo.player.mediator.IVisibilityMediator
-	 * @see com.movideo.player.mediator.IAnimationMediator
 	 * 
 	 * @author jmcnamee
 	 */
@@ -50,69 +43,6 @@ package com.dotfold.dotvimstat.manager
 			_view = value;
 		}
 		
-//		/**
-//		 * Make view Element invisible.
-//		 * View is still included in Layout.
-//		 */
-//		public function hide():void
-//		{
-//			if (allowedToHide())
-//			{
-//				animateHide();
-//			}
-//		}
-		
-//		protected function animateHide():void
-//		{
-//			forEach(_animationMediators, animateHideByMediator);
-//		}
-		
-//		private function animateHideByMediator(mediator:IAnimationMediator):void
-//		{
-//			mediator.executeHideAnimation();
-//		}
-		
-//		/**
-//		 * Make view Element visible.
-//		 */
-//		public function show():void
-//		{
-//			if (allowedToShow())
-//			{
-//				animateShow();
-//			}
-//		}
-		
-//		protected function animateShow():void
-//		{
-//			forEach(_animationMediators, animateShowByMediator);
-//		}
-		
-//		private function animateShowByMediator(mediator:IAnimationMediator):void
-//		{
-//			mediator.executeShowAnimation();
-//		}
-		
-//		protected function allowedToShow():Boolean
-//		{
-//			return every(_visibilityMediators, isAllowedToShowByMediator);
-//		}
-		
-//		private function isAllowedToShowByMediator(mediator:IVisibilityMediator):Boolean
-//		{
-//			return mediator.allowShow();
-//		}
-		
-//		protected function allowedToHide():Boolean
-//		{
-//			return every(_visibilityMediators, isAllowedToHideByMediator);
-//		}
-//		
-//		private function isAllowedToHideByMediator(mediator:IVisibilityMediator):Boolean
-//		{
-//			return mediator.allowHide();
-//		}
-		
 		/**
 		 * Add Mediator for view Element.
 		 */
@@ -121,16 +51,6 @@ package com.dotfold.dotvimstat.manager
 			mediator.setView(view);
 			
 			_mediators.push(mediator);
-			
-//			if (mediator is IVisibilityMediator)
-//			{
-//				_visibilityMediators.push(mediator);
-//			}
-//			
-//			if (mediator is IAnimationMediator)
-//			{
-//				_animationMediators.push(mediator);
-//			}
 		}
 		
 		/**
@@ -138,8 +58,6 @@ package com.dotfold.dotvimstat.manager
 		 */
 		public function initMediators(injector:Injector):void
 		{
-			trace('init mediators');
-			
 			var mediator:IMediator;
 			
 			for (var i:int = 0, n:int = _mediators.length; i < n; i++)
@@ -161,52 +79,9 @@ package com.dotfold.dotvimstat.manager
 			}
 		}
 		
-//		/**
-//		 * Enable all Mediators for the View
-//		 * and include the Element.
-//		 */
-//		public function enable():void
-//		{
-//			if (allowedToEnable())
-//			{
-//				animateEnable();
-//				enableMediators();
-//			}
-//		}
-		
-//		/**
-//		 * Disable all Mediators for the View
-//		 * and exclude the Element.
-//		 */
-//		public function disable():void
-//		{
-//			if (allowedToDisable())
-//			{
-//				animateDisable();
-//				disableMediators();
-//			}
-//		}
-		
-//		protected function allowedToEnable():Boolean
-//		{
-//			return every(_visibilityMediators, isAllowedToEnableByMediator);
-//		}
-//		
-//		private function isAllowedToEnableByMediator(mediator:IVisibilityMediator):Boolean
-//		{
-//			return mediator.allowEnable();
-//		}
-//		
-//		protected function allowedToDisable():Boolean
-//		{
-//			return every(_visibilityMediators, isAllowedToDisableByMediator);
-//		}
-//		
-//		private function isAllowedToDisableByMediator(mediator:IVisibilityMediator):Boolean
-//		{
-//			return mediator.allowDisable();
-//		}
-		
+		/**
+		 * Enables all mediators.
+		 */
 		protected function enableMediators():void
 		{
 			for each (var mediator:IMediator in _mediators)
@@ -215,6 +90,9 @@ package com.dotfold.dotvimstat.manager
 			}
 		}
 		
+		/**
+		 * Disables all mediators.
+		 */
 		protected function disableMediators():void
 		{
 			for each (var mediator:IMediator in _mediators)
@@ -222,26 +100,6 @@ package com.dotfold.dotvimstat.manager
 				mediator.disable();
 			}
 		}
-		
-//		protected function animateEnable():void
-//		{
-//			forEach(_animationMediators, animateEnableByMediator);
-//		}
-//		
-//		private function animateEnableByMediator(mediator:IAnimationMediator):void
-//		{
-//			mediator.executeEnableAnimation();
-//		}
-//		
-//		protected function animateDisable():void
-//		{
-//			forEach(_animationMediators, animateDisableByMediator);
-//		}
-//		
-//		private function animateDisableByMediator(mediator:IAnimationMediator):void
-//		{
-//			mediator.executeDisableAnimation();
-//		}
 		
 		/**
 		 * Destroy Mediator and remove view Element reference.
