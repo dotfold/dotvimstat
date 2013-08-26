@@ -2,7 +2,7 @@
 
 A quick demo project using the Vimeo Basic API. was supposed to have more of a stats / dashboardy kinda feel to it, but this was as far along as I could get in a weekend.
 
-See the running SWF over at this page thing: [http://dotfold.github.io/dotvimstat/]()
+See the running SWF over at this page thing: [http://dotfold.github.io/dotvimstat/](http://dotfold.github.io/dotvimstat/)
 
 ## Dependencies
 
