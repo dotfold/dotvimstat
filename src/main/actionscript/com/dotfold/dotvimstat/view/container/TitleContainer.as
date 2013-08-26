@@ -5,22 +5,23 @@ package com.dotfold.dotvimstat.view.container
 	import modena.ui.VBox;
 	
 	/**
+	 * Extends VBox to add a title label on a VBox.
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class TitleContainer extends VBox
 	{
 		/**
 		 * Layout XML element name. 
-		 */		
+		 */
 		public static const ELEMENT_NAME:String = "titleContainer";
 		
 		private var _title:Label;
 		
 		/**
 		 * Constructor.
-		 */		
+		 */
 		public function TitleContainer(styleClass:String = null)
 		{
 			super(styleClass);
@@ -29,7 +30,7 @@ package com.dotfold.dotvimstat.view.container
 		/**
 		 * @inheritDoc
 		 * Creates the children used in the Element. 
-		 */		
+		 */
 		override protected function createElementContent():ElementContent
 		{
 			var content:ElementContent = super.createElementContent();
@@ -43,8 +44,7 @@ package com.dotfold.dotvimstat.view.container
 		/**
 		 * Sets the title of the container. Typically set from layout via element factory.
 		 * @param value String
-		 * 
-		 */		
+		 */
 		public function set title(value:String):void
 		{
 			_title.text = value;

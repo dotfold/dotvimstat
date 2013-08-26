@@ -5,7 +5,7 @@ package com.dotfold.dotvimstat.model
 	 * 
 	 * @author jamesmcnamee
 	 * 
-	 */	
+	 */
 	public class BaseEntity
 	{
 		/**
@@ -20,7 +20,7 @@ package com.dotfold.dotvimstat.model
 		
 		/**
 		 * ID value as set by Vimeo.
-		 */		
+		 */
 		public function get id():int
 		{
 			return _id;
