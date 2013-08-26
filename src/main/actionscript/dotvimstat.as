@@ -11,9 +11,7 @@ package
 	import flash.events.Event;
 	import flash.utils.getDefinitionByName;
 	
-	
-	
-	[SWF(backgroundColor="#CCCCCC", width="854", height="480")]
+	[SWF(backgroundColor="#CCCCCC", width="906", height="480")]
 	
 	/**
 	 * Entry point for the application.

@@ -6,6 +6,7 @@ package
 	import com.dotfold.dotvimstat.manager.ViewManager;
 	import com.dotfold.dotvimstat.model.UserInfoEntity;
 	import com.dotfold.dotvimstat.net.http.HTTPClient;
+	import com.dotfold.dotvimstat.net.http.HTTPRequestBuilder;
 	import com.dotfold.dotvimstat.net.service.IVimeoService;
 	import com.dotfold.dotvimstat.net.service.VimeoBasicService;
 	import com.dotfold.dotvimstat.view.animation.ElementAnimationSequencer;
@@ -23,7 +24,7 @@ package
 	
 	import org.swiftsuspenders.Injector;
 	
-	[SWF(backgroundColor="#CCCCCC", width="854", height="480")]
+	[SWF(backgroundColor="#CCCCCC", width="906", height="480")]
 	
 	/**
 	 * Main Application file. Contains startup sequence to bootstrap the application.
@@ -94,6 +95,7 @@ package
 		private function initialiseSecuritySettings(next:Function):void
 		{
 			Security.allowDomain("*");
+			Security.allowInsecureDomain('*');
 			Security.loadPolicyFile('http://vimeo.com/crossdomain.xml');
 			
 			next();
@@ -179,6 +181,7 @@ package
 			ViewManager.getInstance().injector = _injector;
 			
 			_injector.map(ViewManager).toValue(ViewManager.getInstance());
+			_injector.map(HTTPRequestBuilder);
 			_injector.map(HTTPClient);
 			_injector.map(IVimeoService).toType(VimeoBasicService);
 			_injector.map(ElementAnimationSequencer);

@@ -26,7 +26,7 @@
 	backgroundAlpha: 0.3;
 	backgroundColor: #f3f3f3;
 	width: 180;
-	height: 152;
+	height: 205;
 	margin: 0 0 4 0;
 	padding: 2;
 }
@@ -61,10 +61,16 @@
 	color: #f3f3f3;
 }
 
-.box2 {
+.moogaloop {
 	backgroundAlpha: 0.3;
 	backgroundColor: #f3f3f3;
-	width: 600;
-	height: 452;
+	width: 720;
+	/*height: 452;*/
+	height: 405;
 	margin: 0 0 0 4;
+}
+
+.moogaload {
+	fontSize: 12;
+	color: #262626;
 }

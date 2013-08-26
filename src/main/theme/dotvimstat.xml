@@ -14,16 +14,17 @@
 					<videosSummary style="summaryView" />
 				</titleContainer>
 
-				<titleContainer style="summaryContainer" title="Likes &amp; Follows">
+				<!-- <titleContainer style="summaryContainer" title="Likes &amp; Follows">
 					<activitySummary style="summaryView" />
-				</titleContainer>
+				</titleContainer> -->
 
 			</vbox>
 
-			<titleContainer style="box2" title="moogaloop" />
+			<vbox style="moogaloop">
+				<moogaloop style="fullWidth" />
+			</vbox>
 
 		</hbox>
-
 
 	</stack>
 </app>
