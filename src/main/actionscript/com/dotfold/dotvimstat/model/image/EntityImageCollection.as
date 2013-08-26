@@ -1,5 +1,6 @@
 package com.dotfold.dotvimstat.model.image
 {
+	import asx.array.empty;
 	import asx.array.reduce;
 	
 	import com.dotfold.dotvimstat.model.enum.ImageSize;
@@ -19,6 +20,8 @@ package com.dotfold.dotvimstat.model.image
 		
 		protected var sizes:Array = [30, 75, 100, 300];
 		
+		// TODO: `addItems` add many method
+		
 		/**
 		 * Constructor. 
 		 */
@@ -32,7 +35,7 @@ package com.dotfold.dotvimstat.model.image
 		/**
 		 * Adds an item to the internal collection, and sorts on the <code>dimension</code> field.
 		 */
-		public function addItem(item:Object):void
+		public function addItem(item:EntityImage):void
 		{
 			_list ||= [];
 			_list.push(item);
@@ -57,6 +60,22 @@ package com.dotfold.dotvimstat.model.image
 			}
 			
 			return image;
+		}
+		
+		/**
+		 * Returns <code>true</code> if internal list is empty.
+		 */
+		public function isEmpty():Boolean
+		{
+			return empty(_list);
+		}
+		
+		/**
+		 * Returns length of internal list.
+		 */
+		public function get length():int
+		{
+			return _list.length;
 		}
 		
 		/**
