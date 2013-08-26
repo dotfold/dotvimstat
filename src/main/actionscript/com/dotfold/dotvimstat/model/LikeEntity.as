@@ -19,7 +19,7 @@ package com.dotfold.dotvimstat.model
 		public var duration:int;
 		public var embed_privacy:String;
 		public var height:int;
-		public var liked_on:String;
+		public var liked_on:Date;
 		public var mobile_url:String;
 		public var stats_number_of_comments:int;
 		public var stats_number_of_likes:int;
@@ -29,7 +29,7 @@ package com.dotfold.dotvimstat.model
 		public var thumbnail_medium:String;
 		public var thumbnail_small:String;
 		public var title:String;
-		public var upload_date:int;
+		public var upload_date:Date;
 		public var url:String;
 		public var user_id:int;
 		public var user_name:String;
