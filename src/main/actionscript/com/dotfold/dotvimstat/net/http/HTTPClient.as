@@ -1,6 +1,7 @@
 package com.dotfold.dotvimstat.net.http
 {
 	import com.codecatalyst.promise.Promise;
+	import com.dotfold.dotvimstat.tokenreplacement.replacetokens;
 	
 	import flash.utils.Dictionary;
 	
@@ -21,6 +22,9 @@ package com.dotfold.dotvimstat.net.http
 	public class HTTPClient
 	{
 		private static var logger:ILogger = LoggerFactory.getClassLogger(HTTPClient);
+		
+		[Inject]
+		public var httpRequestBuilder:HTTPRequestBuilder;
 		
 		private var _namedResourceMap:Dictionary;
 		
@@ -65,22 +69,9 @@ package com.dotfold.dotvimstat.net.http
 		/**
 		 * Replaces named token strings in a template string.
 		 */
-		protected function replaceNamedTokens(template:String, data:Object):String
+		public function replaceNamedTokens(template:String, data:Object):String
 		{
-			var pattern:RegExp = new RegExp('{([^}]+)}', 'gi');
-			
-			return template.replace(pattern, function(...rest):String { //match:String, $1:Object):String {
-				
-				var match:String = rest[0] as String;
-				var token:String = rest[1] as String;
-				
-				// find the token vlaue in the object
-				if (data && data.hasOwnProperty(token)) {
-					return data[token];
-				}
-				// could not replace token, return token as is
-				return match;
-			});
+			return replacetokens(template, data);
 		}
 		
 		/**
@@ -111,8 +102,7 @@ package com.dotfold.dotvimstat.net.http
 				throw new Error(reason);
 			}
 			
-			var request:HTTPRequest = new HTTPRequest();
-			request.url = mapping.url;
+			var request:HTTPRequest = httpRequestBuilder.buildRequestFor(mapping.url);
 			
 			return request;
 		}
