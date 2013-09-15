@@ -1,9 +1,5 @@
-<!--
-	 Flex configuration build file for Movideo Player. Should be compiled
-	 using ANT to include properties set in build.properties files etc.
--->
 <flex-config>
-	<target-player>@FLASH_TARGET_VERSION@</target-player>
+	<target-player>10.2.0.0</target-player>
 
 	<default-background-color>0x000000</default-background-color>
 
@@ -27,7 +23,9 @@
 		<show-unused-type-selector-warnings>false</show-unused-type-selector-warnings>
 		
 		<source-path append="true">
-			<path-element>@SRC@</path-element>
+			<path-element>@TEST_SRC@</path-element>
+			<!-- <path-element>@SRC@</path-element> -->
+
 		</source-path>
 
 		<locale>
