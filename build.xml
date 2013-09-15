@@ -49,7 +49,7 @@
 		description="initializes build.number from external or local source">
 
 		<!-- Otherwise use the local build.number -->
-		<propertyfile file="${build.number.loc}" comment="Movideo Admin build number">
+		<propertyfile file="${build.number.loc}" comment="Vimeo Application build number">
 			<entry value="1" key="build.number" default="0" type="int"
 				operation="+" />
 		</propertyfile>
@@ -96,6 +96,7 @@
 				<filter value="${build.version}" token="VERSION" />
 				<filter value="${build.debug}" token="DEBUG" />
 				<filter value="${src.loc}" token="SRC" />
+				<filter value="${test.loc}" token="TEST_SRC" />
 			</filterset>
 		</copy>
 
@@ -129,7 +130,6 @@
 			link-report="${report.loc}/link-report.xml">
 
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
-			<!-- <load-config filename="${flex.config.base}" /> -->
 			<load-config filename="${config.file}" />
 
 			<compiler.library-path dir="${lib.loc}"
@@ -148,7 +148,7 @@
 		depends="process-sources">
 		<!-- Compile Tests -->
 		<mxmlc file="${test.loc}/${test.runner.app}" output="${bin.loc}/${test.runner.swf}">
-			<load-config filename="${flex.config.base}" />
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
 			<load-config filename="${test.config.file}" />
 
 			<compiler.library-path dir="${lib.loc}"
@@ -161,11 +161,30 @@
 
 	<target name="test"
 		description="run tests using a suitable unit testing framework."
-		depends="test-compile">
+		depends="compile">
 		<!-- FlexUnit Config -->
-		<taskdef resource="flexUnitTasks.tasks" classpath="${build.lib.loc}/flexUnitTasks-4.0.0.jar" />
-		<flexunit swf="${bin.loc}/${test.runner.swf}" toDir="${report.flexunit.loc}"
-			haltonfailure="false" verbose="true" localTrusted="true" />
+		<taskdef resource="flexUnitTasks.tasks" classpath="${build.lib.loc}/flexUnitTasks-4.1.0-RC1.x.jar" />
+		<flexunit 
+		    workingDir="${bin.loc}"
+		    toDir="${report.loc}" 
+			haltonfailure="false" 
+			verbose="true" 
+			localTrusted="true">
+	      <source dir="${src.loc}" />
+	      <testSource dir="${test.loc}">
+	         <include name="**/*Test.as" />
+	      </testSource>
+	      <library dir="${lib.loc}" />
+	   </flexunit>
+
+	   <!-- Generate readable JUnit-style reports -->
+		<junitreport todir="${report.loc}">
+			<fileset dir="${report.loc}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${report.loc}/html" />
+		</junitreport>
+		
 	</target>
 
 	<target name="test-flashplayer" description="runs tests using Flash Player"
@@ -177,6 +196,6 @@
 		</exec>
 	</target>
 
-	<target name="build" description="Compiles the library" depends="clean, compile" />
+	<target name="build" description="Compiles the library" depends="clean, test, compile" />
 
 </project>
