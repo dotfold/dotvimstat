@@ -161,30 +161,23 @@
 
 	<target name="test"
 		description="run tests using a suitable unit testing framework."
-		depends="compile">
+		depends="test-compile">
 		<!-- FlexUnit Config -->
 		<taskdef resource="flexUnitTasks.tasks" classpath="${build.lib.loc}/flexUnitTasks-4.1.0-RC1.x.jar" />
-		<flexunit 
-		    workingDir="${bin.loc}"
-		    toDir="${report.loc}" 
-			haltonfailure="false" 
-			verbose="true" 
-			localTrusted="true">
-	      <source dir="${src.loc}" />
-	      <testSource dir="${test.loc}">
-	         <include name="**/*Test.as" />
-	      </testSource>
-	      <library dir="${lib.loc}" />
-	   </flexunit>
+		<flexunit
+			swf="${bin.loc}/${test.runner.swf}"
+			toDir="${report.flexunit.loc}"
+			haltonfailure="false"
+			verbose="true"
+			localTrusted="true" />
 
-	   <!-- Generate readable JUnit-style reports -->
+		<!-- Generate readable JUnit-style reports -->
 		<junitreport todir="${report.loc}">
 			<fileset dir="${report.loc}">
 				<include name="TEST-*.xml" />
 			</fileset>
 			<report format="frames" todir="${report.loc}/html" />
 		</junitreport>
-		
 	</target>
 
 	<target name="test-flashplayer" description="runs tests using Flash Player"

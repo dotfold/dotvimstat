@@ -23,9 +23,8 @@
 		<show-unused-type-selector-warnings>false</show-unused-type-selector-warnings>
 		
 		<source-path append="true">
+			<path-element>@SRC@</path-element>
 			<path-element>@TEST_SRC@</path-element>
-			<!-- <path-element>@SRC@</path-element> -->
-
 		</source-path>
 
 		<locale>
@@ -45,6 +44,11 @@
 			<name>DefaultProperty</name>
 			<name>Alias</name>
 		</keep-as3-metadata>
+		
+		<define>
+			<name>LOGGER::debug</name>
+			<value>@DEBUG@</value>
+		</define>
 
 	</compiler>
 </flex-config>

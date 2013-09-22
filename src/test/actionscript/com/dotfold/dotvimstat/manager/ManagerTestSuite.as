@@ -1,4 +1,4 @@
-package com.dotvimstat.manager
+package com.dotfold.dotvimstat.manager
 {
 
 	[Ignore]	

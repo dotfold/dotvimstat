@@ -7,9 +7,9 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.dotvimstat.manager.ManagerTestSuite;
-			import com.dotvimstat.model.ModelTestSuite;
-			import com.dotvimstat.net.NetTestSuite;
+			import com.dotfold.dotvimstat.manager.ManagerTestSuite;
+			import com.dotfold.dotvimstat.model.ModelTestSuite;
+			import com.dotfold.dotvimstat.net.NetTestSuite;
 			
 			import org.flexunit.internals.TraceListener;
 			import org.flexunit.listeners.CIListener;

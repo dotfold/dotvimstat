@@ -1,4 +1,4 @@
-package com.dotvimstat.net
+package com.dotfold.dotvimstat.net
 {
 	import com.dotfold.dotvimstat.net.http.HTTPClientTest;
 	import com.dotfold.dotvimstat.net.http.HTTPRequestTest;

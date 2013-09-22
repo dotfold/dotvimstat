@@ -1,4 +1,4 @@
-package com.dotvimstat.model
+package com.dotfold.dotvimstat.model
 {
 	import com.dotfold.dotvimstat.model.image.EntityImageCollectionTest;
 
