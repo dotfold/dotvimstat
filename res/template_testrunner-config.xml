@@ -1,9 +1,5 @@
-<!--
-	 Flex configuration build file for Movideo Player. Should be compiled
-	 using ANT to include properties set in build.properties files etc.
--->
 <flex-config>
-	<target-player>@FLASH_TARGET_VERSION@</target-player>
+	<target-player>10.2.0.0</target-player>
 
 	<default-background-color>0x000000</default-background-color>
 
@@ -28,6 +24,7 @@
 		
 		<source-path append="true">
 			<path-element>@SRC@</path-element>
+			<path-element>@TEST_SRC@</path-element>
 		</source-path>
 
 		<locale>
@@ -47,6 +44,11 @@
 			<name>DefaultProperty</name>
 			<name>Alias</name>
 		</keep-as3-metadata>
+		
+		<define>
+			<name>LOGGER::debug</name>
+			<value>@DEBUG@</value>
+		</define>
 
 	</compiler>
 </flex-config>

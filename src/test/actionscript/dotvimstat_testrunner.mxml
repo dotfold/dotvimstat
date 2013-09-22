@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:adobe="http://www.adobe.com/2009/flexUnitUIRunner"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+	creationComplete="creationCompleteHandler()">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.dotfold.dotvimstat.manager.ManagerTestSuite;
+			import com.dotfold.dotvimstat.model.ModelTestSuite;
+			import com.dotfold.dotvimstat.net.NetTestSuite;
+			
+			import org.flexunit.internals.TraceListener;
+			import org.flexunit.listeners.CIListener;
+			import org.flexunit.listeners.UIListener;
+			import org.flexunit.runner.FlexUnitCore;
+			
+			private var core:FlexUnitCore;
+			
+			private function creationCompleteHandler():void
+			{
+				core = new FlexUnitCore();
+				core.addListener(new CIListener());
+				core.addListener(new TraceListener());
+				core.addListener(new UIListener(testRunnerBase));
+				
+				core.run(
+					
+					ManagerTestSuite,
+					ModelTestSuite,
+					NetTestSuite
+					
+				);
+			}
+		]]>
+	</mx:Script>
+	
+	<adobe:TestRunnerBase 
+		id="testRunnerBase"
+		width="100%"
+		height="100%" />
+	
+</mx:Application>
